@@ -21,11 +21,12 @@ public class TopicosController {
     private TopicoRepository topicoRepository;
 
     @RequestMapping("/topicos")
-    public List<TopicoDTO> lista(String nomeCurso) {
+    public List<TopicoDTO> listaPeloNome(String nomeCurso) {
         if (nomeCurso == null){
             return TopicoDTO.converter(topicoRepository.findAll());
         }
         return TopicoDTO.converter(topicoRepository.findByCursoNome(nomeCurso));
      }
+
 
 }
