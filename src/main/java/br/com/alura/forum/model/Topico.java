@@ -57,17 +57,19 @@ public class Topico {
         return true;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
-    public void setAutor(Usuario autor) {
-        this.autor = autor;
+    public void setMensagem(String mensagem) {
+        this.mensagem = mensagem;
     }
 
     public void setStatus(StatusTopico status) {
         this.status = status;
     }
+
+
 
     public Long getId() {
         return id;
