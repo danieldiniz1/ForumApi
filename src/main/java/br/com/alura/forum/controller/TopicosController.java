@@ -34,14 +34,6 @@ public class TopicosController {
     @Autowired
     private CursoRepository cursoRepository;
 
-//    @GetMapping()
-//    public List<TopicoDTO> listaPeloNome(String nomeCurso) {
-//        if (nomeCurso == null){
-//            return TopicoDTO.converter(topicoRepository.findAll());
-//        }
-//        return TopicoDTO.converter(topicoRepository.findByCursoNome(nomeCurso));
-//     }
-
     @GetMapping()
     public Page<TopicoDTO> listaPeloNome(@RequestParam(required = false) String nomeCurso,
                                          @PageableDefault(sort = "id", direction = Sort.Direction.DESC, page = 0, size = 15) Pageable paginacao) {
