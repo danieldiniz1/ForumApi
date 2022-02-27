@@ -9,6 +9,9 @@ import br.com.alura.forum.repository.CursoRepository;
 import br.com.alura.forum.repository.TopicoRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -29,12 +32,25 @@ public class TopicosController {
     @Autowired
     private CursoRepository cursoRepository;
 
-    @GetMapping("/nome")
-    public List<TopicoDTO> listaPeloNome(String nomeCurso) {
+//    @GetMapping()
+//    public List<TopicoDTO> listaPeloNome(String nomeCurso) {
+//        if (nomeCurso == null){
+//            return TopicoDTO.converter(topicoRepository.findAll());
+//        }
+//        return TopicoDTO.converter(topicoRepository.findByCursoNome(nomeCurso));
+//     }
+
+    @GetMapping()
+    public Page<TopicoDTO> listaPeloNome(@RequestParam(required = false) String nomeCurso,
+                                         @RequestParam int pagina,
+                                         @RequestParam int qtd) {
+
+        Pageable paginacao = PageRequest.of(pagina,qtd);
+
         if (nomeCurso == null){
-            return TopicoDTO.converter(topicoRepository.findAll());
+            return TopicoDTO.converter(topicoRepository.findAll(paginacao));
         }
-        return TopicoDTO.converter(topicoRepository.findByCursoNome(nomeCurso));
+        return TopicoDTO.converter(topicoRepository.findByCursoNome(nomeCurso, paginacao));
      }
 
      @GetMapping("/id")
