@@ -48,10 +48,10 @@ public class TopicosController {
         return TopicoDTO.converter(topicoRepository.findByCursoNome(nomeCurso, paginacao));
      }
 
-     @GetMapping("/id")
-    public String listaPeloId(Long id){
-        return  topicoRepository.findById(id).get().getTitulo();
-     }
+//     @GetMapping("/id")
+//    public String listaPeloId(Long id){
+//        return  topicoRepository.findById(id).get().getTitulo();
+//     }
 
      @PostMapping("/cadastro")
      @Transactional
