@@ -47,8 +47,8 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers(HttpMethod.GET,"/topicos").permitAll()
                 .antMatchers(HttpMethod.GET, "/topicos/*").permitAll()
-                .antMatchers(HttpMethod.GET, "/actuator").permitAll() // em negócios reais, ele não é aberto (aqui é só para testar o actuator)
-                .antMatchers(HttpMethod.GET, "/actuator/**").permitAll() // em negócios reais, ele não é aberto (aqui é só para testar o actuator)
+//                .antMatchers(HttpMethod.GET, "/actuator").permitAll() // em negócios reais, ele não é aberto (aqui é só para testar o actuator)
+//                .antMatchers(HttpMethod.GET, "/actuator/**").permitAll() // em negócios reais, ele não é aberto (aqui é só para testar o actuator)
                 .antMatchers(HttpMethod.POST,"/auth").permitAll()
                 .anyRequest().authenticated()
                 .and().csrf().disable()
@@ -57,8 +57,9 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 
     }
 
-    // configuração de recursos estaticos(js, css, imagens)
+    // configuração de recursos estaticos(js, css, imagens, swagger)
     @Override
     public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/**.html", "/v2/api-docs", "/webjars/**", "/configuration/**","/swagger-resources/**");
     }
 }
