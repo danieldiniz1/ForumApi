@@ -10,12 +10,20 @@ import java.io.IOException;
 
 
 public class AutenticacaoViaTokenFilter extends OncePerRequestFilter {
+
+    private TokenService tokenService;
+
+    public AutenticacaoViaTokenFilter(TokenService tokenService) {
+        this.tokenService = tokenService;
+    }
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         // pegar o token que vem no cabeçalho da requisição
         String token = recuperarToken(request);
-        System.out.println(token);
+        boolean valido = tokenService.isTokenValido(token);
+        System.out.println(valido);
 
 
         filterChain.doFilter(request,response);
@@ -23,7 +31,7 @@ public class AutenticacaoViaTokenFilter extends OncePerRequestFilter {
 
     private String recuperarToken(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
-        if(token.isEmpty() || token == null || !token.startsWith("Bearer ")){
+        if(token == null || token.isEmpty() || !token.startsWith("Bearer ")){
             return null;
         }
         return token.substring(7,token.length());
